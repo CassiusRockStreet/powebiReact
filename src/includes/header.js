@@ -1,13 +1,42 @@
-import React from 'react';
-// import SetLogout from './login';
+import React from 'react';import Logo from '../img/Logoimg.png';
+import Icon1 from './../img/Icon1.png';
+import Icon2 from './../img/Icon2.png';
+import $ from 'jquery';
 class Heading extends React.Component {
     constructor(props){
         super(props);
         this.state = ({
             isLoggedIn: true
         });
+        this.SetLogout = this.SetLogout.bind(this);
     }
-    
+
+    SetLogout(){
+        localStorage.removeItem('LoggedIn');
+        localStorage.removeItem('Username');
+        window.location.reload(true);
+    }
+    componentDidMount(){
+        var Now = new Date().getTime();
+
+        
+        const ExprTime = localStorage.getItem("ExpireDate");   
+        
+
+        if(ExprTime <= Now){
+            localStorage.removeItem("Username");
+            localStorage.removeItem("LoggedIn");  
+            localStorage.removeItem("ExpireDate");   
+            window.location.reload(true);
+        }
+
+        $('document').ready(function(){
+            $('.sideNavs').hide();
+            $('.MenuTrigure').click(function(){
+                $('.sideNavs').slideToggle({ direction: "left" }, 1000);
+            });
+        });
+    }
   render(){
       return (
             <>
@@ -22,7 +51,7 @@ class Heading extends React.Component {
                             </div>
                         </ul>
                         <ul className="navbar-nav ml-auto">
-                                <li className=" nav-item dropdown">
+                                {/* <li className=" nav-item dropdown">
                                     <span className="nav-link dropdown-toggle" id="navbardrop" data-toggle="dropdown">
                                     <i className="fas fa-cog"></i>  Settings
                                     </span>
@@ -32,26 +61,26 @@ class Heading extends React.Component {
                                             <li><span>Logout</span></li>
                                         </ul>
                                     </div>
-                                </li>
+                                </li> */}
                         </ul>
                         </nav>   
                 </div>         
             </div>
-            {/* <div className="sideNavs">
-                <ul className="nav flex-column">
+            <div className="sideNavs">
+                <center><img src={Logo} className="img-responsive" alt="Budget Insight Logo"/></center>
+                <br/>
+                <ul className="nav flex-column"> 
+                    <li><img src={Icon1} className="img-responsive Icon1"/> <span className="sideName">Budget Analysis and Forecasting</span></li>
+                    <li><img src={Icon2} className="img-responsive Icon2"/> <span className="sideName">User Guide</span></li>
+                    {/* <li><span><i className='fa fa-home'></i></span> <span className="sideName">Report A</span></li>
                     <li><span><i className='fa fa-home'></i></span> <span className="sideName">Report A</span></li>
-                    <li><span><i className='fa fa-home'></i></span> <span className="sideName">Report A</span></li>
-                    <li><span><i className='fa fa-home'></i></span> <span className="sideName">Report A</span></li>
-                    <li><span><i className='fa fa-home'></i></span> <span className="sideName">Report A</span></li>
-                    <li><span><i className='fa fa-home'></i></span> <span className="sideName">Report A</span></li>
-                    <li><span><i className='fa fa-home'></i></span> <span className="sideName">Report A</span></li>
-                    <li><span><i className='fa fa-home'></i></span> <span className="sideName">Report A</span></li>
-
+                    <li><span><i className='fa fa-home'></i></span> <span className="sideName">Report A</span></li> */}
+                    <li><span><i className='fa fa-user'></i></span>  <span className="sideName">My Profile</span></li>
+                    <li onClick={this.SetLogout}><span><i className='fa fa-cog'></i></span>  <span className="sideName">Logout</span></li>
                 </ul>
-            </div> */}
+            </div> 
             </>
-        );
-        
+        );      
   }
   
 }
