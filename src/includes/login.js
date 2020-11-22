@@ -1,7 +1,7 @@
 import Axios from 'axios';
 import React from 'react';
 import Dashboard from './views/dashboard'
-import Logo from '../img/Logoimg.png';
+import Logo from '../img/BudgetInsights.png';
 class Login extends React.Component {
    constructor(props){
         super(props);
@@ -91,7 +91,7 @@ class Login extends React.Component {
                         //     },
                     });
                 const dataSet = Login.data;
-                // console.log(dataSet);
+                console.log(dataSet);
                 // console.log(dataSet[0]['Message']);
                 if(dataSet[0]['status'] === '100'){
                       this.setState({
@@ -107,14 +107,16 @@ class Login extends React.Component {
                     var NowHrThty = new Date().getTime() + 3600600;
 
                     // 1605382523848
-                    localStorage.setItem("LoggedIn",true);  
+                    localStorage.setItem("LoggedIn",true);
+                    localStorage.setItem("userID",dataSet[0]['data']['id']);  
                     localStorage.setItem("ExpireDate",NowHrThty);   
-                    localStorage.setItem("Username",this.state.userName);
+                    localStorage.setItem("userRole",dataSet[0]['data']['role']);
+                    localStorage.setItem("Username",dataSet[0]['data']['name']);
                 }else{
                       this.setState({
                         successLogin : false,
                         isStage:"SetLogin",
-                        changeStage:true,
+                        changeStage:false,
                         message: dataSet[0]['Message'],
                         alert: "alert alert-danger",
                         showAlert:true,
@@ -233,10 +235,17 @@ class Login extends React.Component {
                         );  
                     break;
                     default:
-                        return (<div className="container">
+                        this.setState({
+                            changeStage:false
+                        }); 
+                    break;
+                }
+            }else{
+                return (
+                    <div className="container">
                             <div className="row">
                                 <div className="col-md-6 LoginColumn">
-                                    <center><img src={Logo} className="img-responsive" alt="Budget Insight Logo"/></center>
+                                    <center><img src={Logo} className="img-responsive LoginLogo" alt="Budget Insight Logo"/></center>
                                     <p className={this.state.alert}>{this.state.message}</p>
                                     <div className="panel panel-default loginForm">
                                         <div className="panel-body">
@@ -258,43 +267,7 @@ class Login extends React.Component {
                                 </div>
                             </div>         
                         </div>
-                        );
-                    break;
-                }
-            }else{
-                return (
-                    <div>
-                        <div className="row HeadingHome">
-                            <div className="col-md-12">
-                                <nav className="navbar navbar-expand-sm bg-dark navbar-dark">
-                                    
-                                    <ul className="navbar-nav ml-auto">
-                                        <li onClick={this.LoginSet}><span>Login</span></li>
-                                        <li onClick={this.AboutUs}><span>About us</span></li>
-                                    </ul>
-                                </nav> 
-                            </div>
-                        </div>
-                        <div className="container">
-                            <div className="row">
-                                <div className="col-md-2"></div>
-                                <div className="col-md-10">
-                                    <center>
-                                    <div className="WelcomePanel">
-                                        <img src={Logo} className="img-responsive" alt="Budget Insight Logo"/>
-                                        <h3>Key budget insights <span>and detailed variance analysis</span><br/>
-                                            What-if analysis <span>and budget variance forecasting</span><br/> 
-                                            Simplified budget <span>revision process</span><br/>
-                                            <span>Improved financial analysis and</span> decision making<br/>
-                                        </h3>   
-                                    </div>
-                                    </center>   
-                                </div>
-                                <div className="col-md-2"></div>
-                            </div>         
-                        </div>
-                    </div>
-                );
+                    )
             }
         }
     } 

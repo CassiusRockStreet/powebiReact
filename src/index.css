@@ -6,7 +6,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   height: 100vh;
-  background: URL('./img/background.jpg');
+  background: URL('./img/background.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -57,12 +57,15 @@ code {
   color:#f66604
 }
 .report-style-class {
-	height: 93vh;
+	height: 86vh;
 	width: 100%;
 }
 .LoginColumn{
   margin: 0% auto !important;
-  margin-top: 15vh !important;
+  margin-top: 9vh !important;
+}
+.LoginLogo{
+  width: 50%;
 }
 .LoginColumn h1{
   text-align: center;
@@ -74,22 +77,29 @@ code {
   margin-bottom:10%;
 }
 .loginForm{
-  background:rgba(255, 255, 255, 0.516);
+  background:rgba(255, 255, 255, 0.173);
   padding:40px 50px 30px 40px;
   border-radius: 5px;
   margin-top:3vh;  
   margin-bottom: 10px;
   box-shadow: 0px 5px 8px 0px #00000040;
 }
-
+#SubmitBtn{
+  background:#f66604;
+  border-color:#f66604;
+}
+#SubmitBtn:hover{
+  background:#d05604;
+  border-color:#d05604;
+}
 .loginForm h3{
   margin-bottom: 10px;
-  color: dimgrey;
+  color: #f9f9f9;
   text-align: center;
 }
 .loginForm p{
   margin-bottom:20px;
-  color: dimgrey;
+  color: #f9f9f9;
   text-align: center;
 }
 
@@ -112,7 +122,7 @@ code {
   color: rgba(255, 255, 255, 0.906);
 }
 .passwordreset:hover{
-  color: rgb(43, 92, 177);
+  color: rgb(130, 162, 216);
 }
 p.alert{
   margin-bottom: 0px !important;
@@ -125,57 +135,91 @@ p.alert{
   color:#fff;
   cursor: pointer;
 }
+.LogoNav{
+  width:90%; 
+  margin-top: 5px; 
+}
+.SupportText a{
+  color: #fff;
+  font-weight:800;
+}
+.SupportText small{
+  margin-top:-10px !important;
+}
+.topNavsSide{
+  color:#f9f9f9;
+}
+.topNavsSide p{
+  padding: 3px 0px;
+  margin: 0px;
+}
+.topNavsSide{
+  background:#0e3465 !important;
+}
+.navbar{
+  padding:0px 20px !important;
+  margin:0px 0px !important;
+}
+.leftNav{
+  cursor: pointer !important;
+  margin-right: 20px;
+}
+
+.leftNav li{
+  margin: 0px 15px;
+  padding:15px 0px;
+  border-bottom: 2px solid transparent;
+}
+.leftNav li:hover, .activated{
+  border-bottom:2px  solid #f66604 !important;
+}
+
+.navbar-dark .navbar-toggler-icon{
+  color: #2f2f2f !important;
+  
+}
+.navbar-dark .navbar-toggler{
+  color: #2f2f2f !important;
+}
+button.navbar-toggler.collapsed > span.navbar-toggler-icon{
+  color: #2f2f2f !important;
+}
+button.navbar-toggler span{
+ color: #2f2f2f !important; 
+}
+.leftNav li span:hover{
+  color:#0e3465 !important;
+}
+.navigations,.navigations .navbar{
+  background:#f9f9f9 !important;
+  color:#2f2f2f !important;
+  box-shadow:0px 6px 11px 1px #cecece;
+}
+.navigations .navbar li, .navigations .navbar li span,.navbar-brand{
+  color:#2f2f2f !important;
+}
+
 .navigations > .col-md-12{
   padding: 0px !important;
   margin: 0px !important;
 }
-.MenuTrigure{
-  cursor: pointer;
-  padding:0px 10px;
-  color:#fff;
-  border:1px solid #616161;
-  margin-top: 1px;
-}
-.MenuTrigure:hover{
-  background:#f1f0f0;
-  color:#2f2f2f;
-}
+
 .Icon1{
-  width: 11%;
+  width: 10%;
   padding: 0px !important;
-  margin: 0px !important;
+  margin: 0px 5px 0px 0px !important;
 }
 .Icon2{
   padding: 0px !important;
   margin: 0px !important;
-  width: 11%;
+  width: 20%;
 }
-.sideNavs{
-  position: absolute;
-  background:#fff;
-  width:12.3vw;
-  /* width:3vw; */
-  height: 93vh;
-  box-shadow:0px 0px 10px 0px #616161;
-  list-style-type: none;
-}
-.sideNavs img{
-  padding-top:10px;
-}
-.sideNavs ul li{
-  padding:10px 20px;
-  width: 100%;
-  cursor: pointer;
-}
-.sideNavs ul li:hover{
-  background:#f66604;
-  color:#fff;
-}
-.sideName{
-  /* display: none; */
-}
+
 .dropdown{
   cursor: pointer;
+}
+.dropdown-menu ul li:hover{
+  background: #f9f9f9 !important;
 }
 .Settingsdrop{
   margin:0px !important;
@@ -199,4 +243,19 @@ p.alert{
 .Settingsdrop ul li:hover{
   background: #2f2f2f;
   color: #fff;
+}
+@media screen and (min-width:769px) and (max-width:1024px){
+  .LogoNav{
+    width:100%; 
+    margin-top: 10px; 
+  }
+}
+@media screen and (max-width:769px){
+  .SupportText{
+    float: right;
+  }
+  .LogoNav{
+    width:60%; 
+    margin-top: 10px; 
+  }
 }
