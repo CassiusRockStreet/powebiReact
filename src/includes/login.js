@@ -17,7 +17,13 @@ class Login extends React.Component {
             isStage:"",
             changeStage:false,
             successLogin:false,
-            sessionName: ""
+            sessionName: "",
+            cPass : "",
+            cPasswd : "",
+            cPassError: false,
+            passError: false,
+            cPassMessage: "",
+            cPassTxt:""
         }
         this.grantLogin = this.grantLogin.bind(this);
         this.emailChange = this.emailChange.bind(this);
@@ -26,6 +32,10 @@ class Login extends React.Component {
         this.login = this.login.bind(this);
         this.LoginSet = this.LoginSet.bind(this);
         this.AboutUs = this.AboutUs.bind(this);
+        this.CpassChange = this.CpassChange.bind(this);
+        this.passwordChange = this.passwordChange.bind(this);
+        this.resetBtnPassword =  this.resetBtnPassword.bind(this);
+        this.doPasswordReset = this.doPasswordReset.bind(this);
     }
     emailChange(event){
         const emailAddres = event.target.value;
@@ -55,6 +65,54 @@ class Login extends React.Component {
             });
     }
 
+    
+    passwordChange(event){
+        const PasswordChanged = event.target.value;
+        if(PasswordChanged.length < 6){
+            this.setState({
+                passError: true,
+                cPass : PasswordChanged,
+                cPassMessage:"Passsword has to be more than 6 Characters",
+                BtnDisable: true
+            });    
+        }else{
+            this.setState({
+                cPass : PasswordChanged,
+                passError: false,
+                cPassMessage:"",
+                BtnDisable: false
+            });
+        }
+    }
+
+    CpassChange(event){
+        const cPassword = event.target.value;
+        if(cPassword.length < 6){
+            this.setState({
+                passError: true,
+                cPassTxt : cPassword,
+                cPasswd:"Confirm password has to be more than 6 Characters",
+                BtnDisable: true
+            });    
+        }else{
+            if(this.state.cPass != cPassword){
+                this.setState({
+                    cPassTxt : cPassword,
+                    cPassError: true,
+                    cPasswd:"Passwords doesn't match",
+                    BtnDisable: true
+                });
+            }else{
+                this.setState({
+                    cPassTxt : cPassword,
+                    cPassError: false,
+                    cPasswd:"",
+                    BtnDisable: false
+                });
+            }
+        }
+    }
+
     LoginSet(){
         //const LoginSet = event.target.value;
             this.setState({
@@ -66,7 +124,6 @@ class Login extends React.Component {
     }
     grantLogin(event){ 
         if(this.state.userName !== "" && this.state.password !== ""){
-            console.log('Not emoty');
             if(!this.state.userName.match("[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$")){
                 this.setState({
                     emailErr:"Invalid email format",
@@ -91,7 +148,7 @@ class Login extends React.Component {
                         //     },
                     });
                 const dataSet = Login.data;
-                console.log(dataSet);
+                // console.log(dataSet);
                 // console.log(dataSet[0]['Message']);
                 if(dataSet[0]['status'] === '100'){
                       this.setState({
@@ -105,13 +162,15 @@ class Login extends React.Component {
                     });
                     
                     var NowHrThty = new Date().getTime() + 3600600;
-
                     // 1605382523848
                     localStorage.setItem("LoggedIn",true);
+                    localStorage.setItem("Page","Dashboard");
                     localStorage.setItem("userID",dataSet[0]['data']['id']);  
                     localStorage.setItem("ExpireDate",NowHrThty);   
                     localStorage.setItem("userRole",dataSet[0]['data']['role']);
-                    localStorage.setItem("Username",dataSet[0]['data']['name']);
+                    localStorage.setItem("Username",dataSet[0]['data']['username']);
+                    localStorage.setItem("Name",dataSet[0]['data']['name']);
+                    
                 }else{
                       this.setState({
                         successLogin : false,
@@ -157,7 +216,61 @@ class Login extends React.Component {
             changeStage:true
         });
     }
+     
+    doPasswordReset(){
 
+    }
+    resetBtnPassword(){
+        const Pass = this.state.cPass;
+        const cpass = this.state.cPassTxt;
+        const Email = this.state.userName;
+
+        const resetPasswordLogin = async ()=>{
+            const ResetPass = await Axios.get('https://www.rockstreet.co.za/requestPowerbi/login.php?ResetPassword=true&Email='+Email+'&newpassword='+Pass+'',
+                {
+                    crossdomain: true
+                });
+            const Content = ResetPass.data;
+            // console.log(Content);
+            // console.log(dataSet[0]['Message']);
+            if(Content[0]['status'] === '100'){
+                  this.setState({
+                    changeStage:true,
+                    message:Content[0]['Message']+" Go back to login",
+                    alert: "alert alert-success",
+                    showAlert:true
+                });
+            }else{
+                  this.setState({
+                    message: Content[0]['Message'],
+                    alert: "alert alert-danger",
+                    showAlert:true
+                });
+            }
+        }
+
+        if(Pass !=="" && cpass !=="" && Email !==""){
+            if(Pass === cpass){
+                console.log("Ready to transact");
+                resetPasswordLogin();
+            }else{
+                this.setState({
+                    message: "Password details doesnt match",
+                    alert: "alert alert-danger",
+                    showAlert:true
+                })
+            }
+        }else{
+            this.setState({
+                    message: "Please provide all fields",
+                    alert: "alert alert-danger",
+                    showAlert:true
+                })
+        }
+        
+        
+
+    }
 
     login(event){
         this.setState({
@@ -165,14 +278,12 @@ class Login extends React.Component {
         });
     }
 
-    
-
   render(){
     // console.log("User Logged: "+localStorage.getItem("LoggedIn"));
     if(localStorage.getItem("LoggedIn")){
         document.querySelector('body').style.background = 'white';
         return(
-            <Dashboard username={this.state.username}/>
+            <Dashboard/>
         );
     }else{
             if(this.state.changeStage){
@@ -181,19 +292,27 @@ class Login extends React.Component {
                         return (
                             <div className="container">
                                 <div className="row">
-                                    <div className="col-md-6 LoginColumn">
-                                        <h1>Forgot password</h1>
+                                    <div className="col-md-6 LoginColumnFgtpassword">
+                                    <center><img src={Logo} className="img-responsive LoginLogo" alt="Budget Insight Logo"/></center>
                                         <p className={this.state.alert}>{this.state.message}</p>
                                         <div className="panel panel-default loginForm">
                                             <div className="panel-body">
                                                     <h3>Reset your Password</h3>
-                                                    <p>Reset your account password</p>
+                                                    <p>Enter the following details to reset your password</p>
                                                     <div className="form-group">
                                                         <input type="text" placeholder="Email address" className="form-control" value={this.state.userName} onChange={this.emailChange} id="UserEmail" required/>
                                                         <span className="email_error" disabled={this.state.showEmailError}>{this.state.emailErr}</span>
                                                     </div>
                                                     <div className="form-group">
-                                                        <button disabled={this.state.BtnDisable} value="Login" onClick={this.grantLogin} className="btn btn-warning form-control" name="sign in" id="SubmitBtn">Reset password</button>
+                                                        <input type="password" placeholder="Password" className="form-control" value={this.state.cPass} onChange={this.passwordChange} id="UserEmail" required/>
+                                                        <span className="email_error" disabled={this.state.passError}>{this.state.cPassMessage}</span>
+                                                    </div>
+                                                    <div className="form-group">
+                                                        <input type="password" placeholder="Confirm password" className="form-control" value={this.state.cPassTxt} onChange={this.CpassChange} id="UserEmail" required/>
+                                                        <span className="email_error" disabled={this.state.cPassError}>{this.state.cPasswd}</span>
+                                                    </div>
+                                                    <div className="form-group">
+                                                        <button disabled={this.state.BtnDisable} value="Login" onClick={this.resetBtnPassword} className="btn btn-warning form-control" name="sign in" id="SubmitBtn">Reset password</button>
                                                     </div>
                                             </div>
                                         </div>

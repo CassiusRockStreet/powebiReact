@@ -24,11 +24,17 @@ code {
 .HeadingHome > .col-md-12 > .navbar{
   background: none !important;
 }
+.topNavsSide{
+  padding:10px 0px;
+}
 .HeadingHome ul li{
   padding:10px 20px;
   cursor: pointer;
   border-bottom:1px solid transparent;
   color: #013088;
+}
+span.sideName{
+  font-size:14px !important;
 }
 .HeadingHome ul li span{
   font-weight: 600 !important;
@@ -64,6 +70,11 @@ code {
   margin: 0% auto !important;
   margin-top: 9vh !important;
 }
+.LoginColumnFgtpassword{
+  margin: 0% auto !important;
+  margin-top: 4vh !important;
+}
+
 .LoginLogo{
   width: 50%;
 }
@@ -108,9 +119,8 @@ code {
     margin-left:0px !important;
 }
 .footer{
-  position: absolute;
+  position: relative;
   width: 100%;
-  margin:0px;
   bottom: 0px !important;
   text-align: center !important;
   background:#2f2f2f;
@@ -244,6 +254,29 @@ button.navbar-toggler span{
   background: #2f2f2f;
   color: #fff;
 }
+.ProfilePage{
+  margin-bottom:50px !important;
+}
+.ProfilePage > .col-md-12{
+  margin:0px auto ;
+  background:rgb(255, 255, 255);
+  box-shadow: 0px 1px 6px 0px rgba(181 181 181 / 45%);
+  margin-top:50px;
+  padding:10px;
+  border-radius: 7px 7px 0px 0px;
+}
+.userIcon{
+  padding:10px;
+  background:#ccc;
+  border-radius: 100%;
+}
+
+
+
+
+
+
+
 @media screen and (min-width:769px) and (max-width:1024px){
   .LogoNav{
     width:100%; 

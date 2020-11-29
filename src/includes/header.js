@@ -3,6 +3,8 @@ import Logo from '../img/BudgetInsights-dark.png';
 import Icon1 from './../img/Icon1.png';
 import Icon2 from './../img/Icon2.png';
 import $ from 'jquery';
+import Profile from './views/profile'
+
 class Heading extends React.Component {
     constructor(props){
         super(props);
@@ -13,32 +15,31 @@ class Heading extends React.Component {
         });
         this.SetLogout = this.SetLogout.bind(this);
         this.ProfileOpen = this.ProfileOpen.bind(this);
+        this.DashboardOpen  = this.DashboardOpen.bind(this);
     }
 
     SetLogout(){
         localStorage.removeItem('LoggedIn');
         localStorage.removeItem('Username');
+        localStorage.removeItem("userID");  
+        localStorage.removeItem("ExpireDate");   
+        localStorage.removeItem("userRole");
+        localStorage.removeItem("Page");
+        localStorage.removeItem("Name");
         window.location.reload(true);
     }
+
     ProfileOpen(){
-        this.setState({
-            isLoggedIn: true,
-            Stage: "Dashboard",
-            changeStage:false
-        });
-        console.log("ready to work on profile");
-        return (
-            <div>
-                <h1>ready to work</h1>
-            </div>
-        )
+        localStorage.setItem("Page","Profile");
+        window.location.reload(true);
+    }
+    DashboardOpen(){
+        localStorage.setItem("Page","Dashboard");
+        window.location.reload(true);
     }
     componentDidMount(){
         var Now = new Date().getTime();
-
-        
         const ExprTime = localStorage.getItem("ExpireDate");   
-        
 
         if(ExprTime <= Now){
             localStorage.removeItem("Username");
@@ -46,9 +47,13 @@ class Heading extends React.Component {
             localStorage.removeItem("ExpireDate");
             localStorage.removeItem("userID");  
             localStorage.removeItem("userRole");
+            localStorage.removeItem("Page");
+            localStorage.removeItem("Name");
             window.location.reload(true);
+        }else{
+            var NowHrThty = new Date().getTime() + 3600600;
+            localStorage.setItem("ExpireDate",NowHrThty);    
         }
-
         $('document').ready(function(){
             $('.sideNavs').hide();
             $('.MenuTrigure').click(function(){
@@ -61,13 +66,10 @@ class Heading extends React.Component {
             <>
             <div className="row topNavsSide">
                 <div className="col-md-2">
-                    <img src={Logo} className="img-responsive LogoNav" alt="Budget Insight Logo"/>
+                    <img src={Logo} onClick={this.DashboardOpen} className="img-responsive LogoNav" alt="Budget Insight Logo"/>
                 </div>
                 <div className="col-md-9">
-                    <p className="SupportText">
-                        <i className="fa fa-phone"></i> <a href="tel:0000000000">0000 000 000</a><br/>
-                        <small>Help & Support</small>
-                    </p>
+                    
                 </div>
             </div>
             <div className="row navigations">
@@ -79,17 +81,17 @@ class Heading extends React.Component {
                             <span className="fa fa-bars"></span>
                         </button>
 
-                        <div class="collapse navbar-collapse" id="collapsibleNavbar">
-                            <ul class="navbar-nav leftNav">
-                            <li className="nav-item activated">
+                        <div className="collapse navbar-collapse" id="collapsibleNavbar">
+                            <ul className="navbar-nav leftNav">
+                            <li className="nav-item activated" onClick={this.DashboardOpen}>
                                 <img src={Icon1} alt="Budget Icon" className="img-responsive Icon1"/> <span className="sideName">Budget Analysis and Forecasting</span>
                             </li>
-                            <li class="nav-item">
+                            <li className="nav-item">
                                 <img src={Icon2} className="img-responsive Icon2" alt="User Guide Icon"/> <span className="sideName">User Guide</span>
                             </li>
                         </ul>
                         <ul className="navbar-nav ml-auto">
-                        <li className=" nav-item dropdown">
+                        <li className="nav-item dropdown">
                                     <span className="nav-link dropdown-toggle" id="navbardrop" data-toggle="dropdown">
                                     <i className="fas fa-cog"></i>  Settings
                                     </span>
