@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/powebiReact/static/css/main.eefa32cb.chunk.css",
-    "main.js": "/powebiReact/static/js/main.faedb8cb.chunk.js",
-    "main.js.map": "/powebiReact/static/js/main.faedb8cb.chunk.js.map",
+    "main.js": "/powebiReact/static/js/main.a8a5dcec.chunk.js",
+    "main.js.map": "/powebiReact/static/js/main.a8a5dcec.chunk.js.map",
     "runtime-main.js": "/powebiReact/static/js/runtime-main.53a56bc8.js",
     "runtime-main.js.map": "/powebiReact/static/js/runtime-main.53a56bc8.js.map",
     "static/css/2.43b2b750.chunk.css": "/powebiReact/static/css/2.43b2b750.chunk.css",
@@ -23,6 +23,6 @@
     "static/css/2.43b2b750.chunk.css",
     "static/js/2.04a4c2be.chunk.js",
     "static/css/main.eefa32cb.chunk.css",
-    "static/js/main.faedb8cb.chunk.js"
+    "static/js/main.a8a5dcec.chunk.js"
   ]
 }
