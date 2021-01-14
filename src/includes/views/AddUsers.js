@@ -91,7 +91,7 @@ class Users extends React.Component {
         }
         if(Name !=="" && Email !=="" && password !==""){
             sendUser();
-            console.log("Name: "+Name+" Email: "+Email+" Password: "+password+" Role: "+role);
+            // console.log("Name: "+Name+" Email: "+Email+" Password: "+password+" Role: "+role);
             // this.setState({
             //     alert:"alert alert-danger",
             //     ShowAlrt: true,

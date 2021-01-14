@@ -51,7 +51,7 @@ class Users extends React.Component {
     }
 
     RemoverUser(username,userid){
-        console.log("Found:"+userid+" >"+username);
+        // console.log("Found:"+userid+" >"+username);
         this.deleteUser(username,userid);
     }
 

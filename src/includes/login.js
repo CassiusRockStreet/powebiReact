@@ -23,7 +23,9 @@ class Login extends React.Component {
             cPassError: false,
             passError: false,
             cPassMessage: "",
-            cPassTxt:""
+            cPassTxt:"",
+            Platform:"",
+            mailer:""
         }
         this.grantLogin = this.grantLogin.bind(this);
         this.emailChange = this.emailChange.bind(this);
@@ -112,7 +114,6 @@ class Login extends React.Component {
             }
         }
     }
-
     LoginSet(){
         //const LoginSet = event.target.value;
             this.setState({
@@ -158,9 +159,14 @@ class Login extends React.Component {
                         message: "",
                         alert: "",
                         showAlert:false,
-                        sessionName:dataSet[0]['data']['username']
+                        sessionName:dataSet[0]['data']['username'],
+                        Platform:dataSet[0]['data']['peace'],
+                        mailer:dataSet[0]['data']['m'],
+
                     });
-                    
+                    localStorage.setItem("mucode",this.state.mailer);
+                    localStorage.setItem("sucode",this.state.Platform);
+
                     var NowHrThty = new Date().getTime() + 3600600;
                     // 1605382523848
                     localStorage.setItem("LoggedIn",true);
@@ -251,7 +257,7 @@ class Login extends React.Component {
 
         if(Pass !=="" && cpass !=="" && Email !==""){
             if(Pass === cpass){
-                console.log("Ready to transact");
+                // console.log("Ready to transact");
                 resetPasswordLogin();
             }else{
                 this.setState({

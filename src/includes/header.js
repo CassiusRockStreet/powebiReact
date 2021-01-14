@@ -3,7 +3,6 @@ import Logo from '../img/BudgetInsights-dark.png';
 import Icon1 from './../img/Icon1.png';
 import Icon2 from './../img/Icon2.png';
 import $ from 'jquery';
-import Profile from './views/profile'
 
 class Heading extends React.Component {
     constructor(props){
@@ -26,11 +25,14 @@ class Heading extends React.Component {
         localStorage.removeItem("userRole");
         localStorage.removeItem("Page");
         localStorage.removeItem("Name");
+        localStorage.removeItem("mucode");
+        localStorage.removeItem("sucode");
         window.location.reload(true);
     }
 
     ProfileOpen(){
         localStorage.setItem("Page","Profile");
+        localStorage.setItem("Stage","");
         window.location.reload(true);
     }
     DashboardOpen(){

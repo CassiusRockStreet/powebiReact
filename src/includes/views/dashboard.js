@@ -22,7 +22,9 @@ class Dashboard extends React.Component {
     }
     // fetchReport
     fetch_report = async (reportID,groupID,URL)=>{
-        const getReport = await Axios.get('https://www.rockstreet.co.za/requestPowerbi/index.php?groupId='+groupID+'&reportId='+reportID+'',
+        var getLocalmucode = localStorage.getItem("mucode");
+        var getLocalsucode = localStorage.getItem("sucode");
+        const getReport = await Axios.get('https://www.rockstreet.co.za/requestPowerbi/index.php?groupId='+groupID+'&reportId='+reportID+'&mucode='+getLocalmucode+'&sucode='+getLocalsucode+'',
             {
                 crossdomain: true
             });
