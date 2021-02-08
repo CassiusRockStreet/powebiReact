@@ -75,7 +75,8 @@ class Users extends React.Component {
     componentDidMount(){
         this.getList();
         const UserRole = localStorage.getItem('userRole');
-        if(UserRole === "admin"){
+        // const adminUser = localStorage.getItem("userRole");
+        if(UserRole === "admin" || UserRole === "Super admin"){
             this.setState({
                 DisableUserBtn:false
             });
